@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Staff List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/staff.css}">
+</head>
+<body>
+    <h1>Staff List</h1>
+    <div>
+        <label for="searchStaffID">Search by Staff ID:</label>
+        <input type="text" id="staffID" name="staffID">
+        <button onclick="searchStaff()">Search</button>
+    </div>
+    <table id="staffTable">
+        <tr>
+            <th>Staff ID</th>
+            <th>Staff Name</th>
+            <th>IC Number</th>
+            <th>Phone Number</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Address</th>
+            <th>Password</th>
+        </tr>
+       <tr th:each="staff : ${staff}">
+            <td th:text="${staff.staffID}"></td>
+            <td th:text="${staff.staffName}"></td>
+            <td th:text="${staff.staffICNumber}"></td>
+            <td th:text="${staff.staffPhoneNumber}"></td>
+            <td th:text="${staff.staffAge}"></td>
+            <td th:text="${staff.staffGender}"></td>
+            <td th:text="${staff.staffAddress}"></td>
+            <td th:text="${staff.staffPassword}"></td>
+        </tr>
+    </table>
+
+    <script>
+        function searchStaff() {
+            var input = document.getElementById("staffID").value.toLowerCase();
+            var table = document.getElementById("staffTable");
+            var rows = table.getElementsByTagName("tr");
+
+            for (var i = 1; i < rows.length; i++) {
+                var staffID = rows[i].getElementsByTagName("td")[0].textContent.toLowerCase();
+
+                if (staffID.includes(input)) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+    
+    <h2>@ DERMATOLOGIST DEPARTMENT, KKM</h2>
+</body>
+</html>
